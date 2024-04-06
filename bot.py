@@ -23,4 +23,12 @@ def ban_user(message):
     else:
         bot.reply_to(message, "Эта команда должна быть использована в ответ на сообщение пользователя, которого вы хотите забанить.")
 
+
+@bot.message_handler(func=lambda message: True)
+def ban_message(message):
+    if message.text == "LOL":
+        bot.reply_to(message, "BAN")
+    elif message.text == "https://":
+        bot.reply_to(message, "BAN")
+
 bot.infinity_polling(none_stop=True)
