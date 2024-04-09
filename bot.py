@@ -1,7 +1,7 @@
 import telebot # библиотека telebot
 import random
-import requests
 from setting import TOKEN, APPID # импорт токена
+import requests
 import time
 
 bot = telebot.TeleBot(TOKEN) 
@@ -9,7 +9,12 @@ bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start'])
 def start(message):
-    bot.reply_to(message, "Привет! Я бот для управления чатом.")
+    bot.reply_to(message, "Привет! Я могу управлять чатом и показывать погоду, используйте команду /help чтобы узнать другие команды")
+@bot.message_handler(commands=['help'])
+
+def help(message):
+    chat_id = message.chat.id 
+    bot.send_message(chat_id, "Вы можете посмотреть погоду при использование команды /weather \n \n Вы можете кинуть монетку при использование команды /coin \n \n Вы можете проверить работает ли бот при использование команды /ping \n \n Вы можете забанить участника в чат при использование команды /ban (вам нужно быть администраторам) \n \n Вы можете кикнуть участника из чата при использование команды /kick (вам нужно быть администраторам) \n \n Вы можете убрать возможность пользователя писать в чат на время при использование команды /mute (вам нужно быть администраторам) \n \n Вы можете убрать mute если пользователя был в mute при использование команды /unmute (вам нужно быть администраторам)")
 
 @bot.message_handler(commands=['ban'])
 def ban_user(message):
@@ -35,12 +40,13 @@ def coin_event(message):
 
 @bot.message_handler(commands=["ping"])
 def on_ping(message):
-    bot.reply_to(message, "Still alive and kicking!") 
+    bot.reply_to(message, "Все ещё работаю!") 
 
-@bot.message_handler(content_types=['new_chat_members'])
-def make_some(message):
-    bot.send_message(message.chat.id, 'I accepted a new user!')
-    bot.approve_chat_join_request(message.chat.id, message.from_user.id)
+#Я решил выключить потому что это может раздражать
+# @bot.message_handler(content_types=['new_chat_members'])
+# def make_some(message):
+#     bot.send_message(message.chat.id, 'Добро пожаловать новой учасник!')
+#     bot.approve_chat_join_request(message.chat.id, message.from_user.id)
 
 @bot.message_handler(commands=['mute'])
 def mute_user(message):
@@ -146,6 +152,7 @@ def check_message(message):
         if word in message.text.lower():
             return True
     return False
+
 @bot.message_handler(func=lambda message: True)
 def handle_message(message):
     # проверяем сообщение на наличие запрещенных слов
