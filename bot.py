@@ -9,7 +9,7 @@ bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start'])
 def start(message):
-    bot.reply_to(message, "Привет! Я могу управлять чатом и другие вещи, используйте команду /help чтобы узнать другие команды")
+    bot.reply_to(message, "Привет! Я могу управлять чатом и другие вещи, используйте команду /help чтобы узнать другие команды")~
 @bot.message_handler(commands=['help'])
 
 def help(message):
